@@ -34,7 +34,7 @@ Best,`;
 
 const OUTREACH_ENGINEER = `Hello <%-CONTACTNAME-%>,
 
-My name is <%-FIRSTNAME-%> <%-LASTNAME-%> and I am also a software engineer in the your area. I came across a job posting for a <%-JOBTITLE-%> role at <%-COMPANYNAME-%> and, based on my research thus far, I believe the position would be a great fit for my skill-set. I would love to speak with you about your experience at <%-COMPANYNAME-%> and better understand the culture, goals, and workflow of the engineering team.
+My name is <%-FIRSTNAME-%> <%-LASTNAME-%> and I am also a software engineer in your area. I came across a job posting for a <%-JOBTITLE-%> role at <%-COMPANYNAME-%> and, based on my research thus far, I believe the position would be a great fit for my skill-set. I would love to speak with you about your experience at <%-COMPANYNAME-%> and better understand the culture, goals, and workflow of the engineering team.
 
 Do you have [15-20] minutes for a phone call in the next week or two? Thank you in advance for your time/consideration.
 
