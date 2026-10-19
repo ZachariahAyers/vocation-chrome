@@ -1,42 +1,50 @@
 # Vocation
 
-A Chrome extension that keeps a job search moving without retyping the same details all day. It adds a small dock to the bottom of every page. From there you fill in your profile once, pick a cover letter or outreach template, and copy a finished message with the company, role and contact already in place. A second panel walks you through your job boards each day.
+A Chrome extension that keeps a job search moving without retyping the same details all day. It adds a small dock to the bottom of every page. You fill in your profile once, pick a cover letter or outreach template, and copy a finished message with the company, role and contact already in place. A second panel walks you through your job boards each day.
 
 Built by [Zachariah Ayers](https://ayers.repair) ([GitHub](https://github.com/ZachariahAyers)).
 
 ## Why it is built this way
 
 - **It lives on the page you are already on.** A job posting, a LinkedIn message or a recruiter email is where the writing happens, so the overlay is a content script rather than a popup you have to switch to.
-- **Your details stay in your browser.** Everything is saved with `chrome.storage.local`. There is no server, no account and no network request. The only API permission is `storage`; the content script matches every page so the dock is always to hand.
-- **Typed text is never treated as markup.** Templates are plain text with placeholders. The renderer splits them into text segments, and Vue prints each one as text, so a value pasted from a web page cannot inject HTML into the page it is shown on.
-- **Missing details are visible.** A placeholder you have not filled stays in the preview under its own name, highlighted, so a message is never copied with a silent gap.
+- **It cannot be restyled or read by the page.** The overlay mounts in a closed shadow root. Site CSS does not touch it, its CSS does not touch the site, page scripts cannot query its fields, and typing in it does not trigger the site's keyboard shortcuts.
+- **Your details stay in your browser.** Everything is saved with `chrome.storage.local`. There is no server, no account and no network request.
+- **Open tabs agree.** Each part of the state is its own storage key, and every tab applies the others' changes through `chrome.storage.onChanged`, so editing in two tabs merges instead of overwriting.
+- **Copy works on any page.** A content script inherits the page's clipboard rules, and plain-http pages have no `navigator.clipboard`. Copying goes through the extension's service worker and an offscreen document instead.
+- **Typed text is never treated as markup.** Templates are plain text with placeholders, rendered as text segments; there is no `v-html`. A placeholder you have not filled stays visible under its own name, highlighted, so a message is never copied with a silent gap.
 
 ## Features
 
 - **Profile:** name, email, phone, GitHub username, website, current title, years of experience, a short summary, and tag lists for platforms and skills.
-- **Templates:** a cover letter, five outreach messages (recruiter, engineer, executive, thank-you, rebuttal) and three replies to recruiters (interested, maybe, not interested). Each fills from your profile plus the contact, company, job title and keywords for the role in front of you.
-- **Copy to clipboard:** the filled message is copied as plain text, ready for an email or a message box.
-- **Job board rounds:** a checklist of seventeen job boards. Open one from the list, mark it done, and the list resets the next day.
+- **Templates:**
+    - a cover letter;
+    - five outreach messages: recruiter, engineer, executive, thank-you, rebuttal;
+    - three replies to recruiters: interested, maybe, not interested.
+
+    Each fills from your profile plus the contact, company, job title and keywords for the role in front of you.
+
+- **Copy to clipboard:** the filled message is copied as plain text.
+- **Job board rounds:** seventeen job boards, each with a lettermark. Open one, mark it done, and the list resets the next day.
 
 ## Stack
 
-- Vue 3.5 single-file components with `<script setup>` and `defineModel`
-- Vue's `reactive()` as the store, persisted to `chrome.storage.local`
-- Chrome Extensions Manifest V3, a single content script and stylesheet
-- Vite 8 in library mode, emitting one classic script so the page needs no module loader
-- Sass for component styles
-- ESLint 10 with `eslint-plugin-vue`
-- Node's built-in test runner for the template renderer
-- GitHub Actions running lint, tests and the build on every push
+- TypeScript (strict), checked with `vue-tsc`
+- Vue 3.5 single-file components with `<script setup>` and `defineModel`; Vue's `reactive()` as the store
+- Chrome Extensions Manifest V3: a content script, a module service worker and an offscreen document
+- Vite 8: a library-mode IIFE build for the content script and an ES build for the extension pages
+- Sass, with colour tokens injected from one TypeScript palette
+- Vitest, happy-dom and Vue Test Utils for behaviour specs
+- ESLint (Vue TypeScript strict type-checked preset) and Prettier
+- GitHub Actions running the full check on every push
 
 ## Build and load the extension
 
-Requires Node.js 22.12 or newer.
+Requires Node.js 22.18 or newer.
 
 ```bash
 git clone https://github.com/ZachariahAyers/vocation-chrome.git
 cd vocation-chrome
-npm install
+npm ci
 npm run build
 ```
 
@@ -50,39 +58,48 @@ Then load it into Chrome:
 ## Development
 
 ```bash
-npm run dev     # rebuild dist/ on every change; reload the extension to pick it up
-npm run build   # production build into dist/
-npm run lint    # ESLint
-npm test        # template renderer tests
+npm run check    # type check, lint, format check, specs and build: what CI runs
+npm test         # specs only
+npm run dev      # rebuild the overlay on every change; reload the extension to pick it up
+npm run format   # apply Prettier
+npm run icons    # redraw public/icons from the palette
 ```
+
+The repository is set up for [Claude Code](https://code.claude.com/docs): `CLAUDE.md` gives the commands, layout, conventions and definition of done. `.claude/settings.json` allows the project's own check commands. `docs/ARCHITECTURE.md` explains how the contexts, storage sync, clipboard relay and build fit together.
 
 ## Project structure
 
 ```
 vocation-chrome/
 ├── public/
-│   ├── manifest.json        # Manifest V3, copied into dist/ as is
-│   └── icons/               # extension icons
+│   ├── manifest.json            # Manifest V3, copied into dist/ as is
+│   └── icons/                   # generated by npm run icons
+├── scripts/generate-icons.ts    # draws the extension icon from palette tokens
 ├── src/
-│   ├── main.js              # content script entry: loads saved state, mounts the overlay
-│   ├── App.vue              # overlay root
-│   ├── store.js             # reactive state and chrome.storage persistence
-│   ├── template.js          # placeholder renderer
-│   ├── template.test.js     # renderer tests
-│   ├── components/          # dock, side panel, profile, job board and template panels, form fields
-│   ├── data/
-│   │   ├── templates.js     # message templates
-│   │   └── job-boards.js    # job board list
-│   ├── assets/icons/        # job board and dock icons
-│   └── styles/_theme.scss   # colour and font tokens
-├── eslint.config.js
-└── vite.config.js
+│   ├── core/                    # pure logic: state schema, template renderer, lettermarks, palette, messages
+│   ├── content/                 # the overlay: mount, store, storage sync, clipboard, components
+│   ├── background/              # service worker: clipboard relay
+│   ├── offscreen/               # offscreen document that performs the copy
+│   ├── data/                    # message templates and job boards
+│   └── assets/icons/            # dock icons
+├── docs/ARCHITECTURE.md
+├── CLAUDE.md
+├── vite.config.ts
+└── eslint.config.js
 ```
 
-## Template placeholders
+## Permissions
 
-Templates use `<%-NAME-%>`, where `NAME` is a profile or job field in upper case (`<%-FIRSTNAME-%>`, `<%-COMPANYNAME-%>`). A list field such as skills is joined with commas, and `<%-SKILLS_COUNT-%>` gives its length. `<%-DATE-%>` is today's date. A test checks that every shipped template uses only fields the forms provide.
+| Permission                    | Why                                                                  |
+| ----------------------------- | -------------------------------------------------------------------- |
+| `storage`                     | Saving your profile, job details, template choice and board progress |
+| `offscreen`, `clipboardWrite` | Copying a template from the extension's own document                 |
+| content script on all pages   | The dock is available wherever you are writing                       |
+
+## Credits
+
+Dock icons are from [Material Icons](https://github.com/google/material-design-icons) by Google, Apache License 2.0. The job-board lettermarks and the extension icon are drawn in code.
 
 ## License
 
-Apache License 2.0. See [LICENSE](LICENSE).
+Apache License 2.0. See [LICENSE](LICENSE). Release history is in [CHANGELOG.md](CHANGELOG.md).
