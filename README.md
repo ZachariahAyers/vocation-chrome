@@ -1,43 +1,22 @@
 # Vocation
 
-A Chrome extension that keeps a job search moving without retyping the same details all day. It adds a small dock to the bottom of every page. You fill in your profile once, pick a cover letter or outreach template, and copy a finished message with the company, role and contact already in place. A second panel walks you through your job boards each day.
+[![CI](https://github.com/ZachariahAyers/vocation-chrome/actions/workflows/ci.yml/badge.svg)](https://github.com/ZachariahAyers/vocation-chrome/actions/workflows/ci.yml)
 
-Built by [Zachariah Ayers](https://ayers.repair) ([GitHub](https://github.com/ZachariahAyers)).
-
-## Why it is built this way
-
-- **It lives on the page you are already on.** A job posting, a LinkedIn message or a recruiter email is where the writing happens, so the overlay is a content script rather than a popup you have to switch to.
-- **It cannot be restyled or read by the page.** The overlay mounts in a closed shadow root. Site CSS does not touch it, its CSS does not touch the site, page scripts cannot query its fields, and typing in it does not trigger the site's keyboard shortcuts.
-- **Your details stay in your browser.** Everything is saved with `chrome.storage.local`. There is no server, no account and no network request.
-- **Open tabs agree.** Each part of the state is its own storage key, and every tab applies the others' changes through `chrome.storage.onChanged`, so editing in two tabs merges instead of overwriting.
-- **Copy works on any page.** A content script inherits the page's clipboard rules, and plain-http pages have no `navigator.clipboard`. Copying goes through the extension's service worker and an offscreen document instead.
-- **Typed text is never treated as markup.** Templates are plain text with placeholders, rendered as text segments; there is no `v-html`. A placeholder you have not filled stays visible under its own name, highlighted, so a message is never copied with a silent gap.
+A Chrome extension that drafts cover letters and outreach messages from your profile and tracks your daily job-board rounds.
 
 ## Features
 
-- **Profile:** name, email, phone, GitHub username, website, current title, years of experience, a short summary, and tag lists for platforms and skills.
-- **Templates:**
-    - a cover letter;
-    - five outreach messages: recruiter, engineer, executive, thank-you, rebuttal;
-    - three replies to recruiters: interested, maybe, not interested.
+- A profile you fill in once: name, contact details, title, experience, summary, platforms and skills
+- A cover letter, five outreach messages and three recruiter replies, filled in for the role in front of you
+- One-click copy of the finished message as plain text
+- A daily checklist of seventeen job boards that resets each day
+- Your data stays in your browser, with no account and no network requests
 
-    Each fills from your profile plus the contact, company, job title and keywords for the role in front of you.
+## Tech stack
 
-- **Copy to clipboard:** the filled message is copied as plain text.
-- **Job board rounds:** seventeen job boards, each with a lettermark. Open one, mark it done, and the list resets the next day.
+TypeScript, Vue 3, Chrome Extensions Manifest V3, Vite, Sass, Vitest.
 
-## Stack
-
-- TypeScript (strict), checked with `vue-tsc`
-- Vue 3.5 single-file components with `<script setup>` and `defineModel`; Vue's `reactive()` as the store
-- Chrome Extensions Manifest V3: a content script, a module service worker and an offscreen document
-- Vite 8: a library-mode IIFE build for the content script and an ES build for the extension pages
-- Sass, with colour tokens injected from one TypeScript palette
-- Vitest, happy-dom and Vue Test Utils for behaviour specs
-- ESLint (Vue TypeScript strict type-checked preset) and Prettier
-- GitHub Actions running the full check on every push
-
-## Build and load the extension
+## Getting started
 
 Requires Node.js 22.18 or newer.
 
@@ -48,58 +27,25 @@ npm ci
 npm run build
 ```
 
-Then load it into Chrome:
-
-1. Open `chrome://extensions`.
-2. Turn on **Developer mode**.
-3. Click **Load unpacked** and choose the `dist` folder.
-4. Open any web page; the dock appears at the bottom centre.
+Then open `chrome://extensions`, turn on Developer mode, choose Load unpacked and select the `dist` folder. The dock appears at the bottom of any page.
 
 ## Development
 
 ```bash
-npm run check    # type check, lint, format check, specs and build: what CI runs
-npm test         # specs only
-npm run dev      # rebuild the overlay on every change; reload the extension to pick it up
-npm run format   # apply Prettier
-npm run icons    # redraw public/icons from the palette
+npm run dev            # rebuild on change
+npm run typecheck
+npm run lint
+npm run format:check
+npm test
+npm run check          # all of the above plus a build, as CI runs it
 ```
 
-The repository is set up for [Claude Code](https://code.claude.com/docs): `CLAUDE.md` gives the commands, layout, conventions and definition of done. `.claude/settings.json` allows the project's own check commands. `docs/ARCHITECTURE.md` explains how the contexts, storage sync, clipboard relay and build fit together.
-
-## Project structure
-
-```
-vocation-chrome/
-├── public/
-│   ├── manifest.json            # Manifest V3, copied into dist/ as is
-│   └── icons/                   # generated by npm run icons
-├── scripts/generate-icons.ts    # draws the extension icon from palette tokens
-├── src/
-│   ├── core/                    # pure logic: state schema, template renderer, lettermarks, palette, messages
-│   ├── content/                 # the overlay: mount, store, storage sync, clipboard, components
-│   ├── background/              # service worker: clipboard relay
-│   ├── offscreen/               # offscreen document that performs the copy
-│   ├── data/                    # message templates and job boards
-│   └── assets/icons/            # dock icons
-├── docs/ARCHITECTURE.md
-├── CLAUDE.md
-├── vite.config.ts
-└── eslint.config.js
-```
-
-## Permissions
-
-| Permission                    | Why                                                                  |
-| ----------------------------- | -------------------------------------------------------------------- |
-| `storage`                     | Saving your profile, job details, template choice and board progress |
-| `offscreen`, `clipboardWrite` | Copying a template from the extension's own document                 |
-| content script on all pages   | The dock is available wherever you are writing                       |
-
-## Credits
-
-Dock icons are from [Material Icons](https://github.com/google/material-design-icons) by Google, Apache License 2.0. The job-board lettermarks and the extension icon are drawn in code.
+How it is put together: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ## License
 
-Apache License 2.0. See [LICENSE](LICENSE). Release history is in [CHANGELOG.md](CHANGELOG.md).
+Apache License 2.0. See [LICENSE](LICENSE). Dock icons are from [Material Icons](https://github.com/google/material-design-icons) by Google, Apache License 2.0.
+
+---
+
+Built by [Zachariah Ayers](https://ayers.repair).
