@@ -35,9 +35,6 @@
                     >
                         <icon-templates />
                     </jx-dock-button>
-                    <!-- <jx-dock-button :sidebar-id="SIDEBAR_METRICS" icon="clipboard-data" right="true" title="Metrics">
-                        <icon-metrics />
-                    </jx-dock-button>-->
                 </div>
             </transition>
         </div>
@@ -46,7 +43,7 @@
 
 <script>
 import JxDockButton from "./JxDockButton";
-import { SIDEBAR_JOB_BOARD, SIDEBAR_METRICS, SIDEBAR_PERSONAL, SIDEBAR_TEMPLATES } from "../../constants/constants";
+import { SIDEBAR_JOB_BOARD, SIDEBAR_PERSONAL, SIDEBAR_TEMPLATES } from "../../constants/constants";
 import IconPersonal from "../../assets/Icons/IconPersonal";
 import IconJobBoard from "../../assets/Icons/IconJobBoard";
 import IconTemplates from "../../assets/Icons/IconTemplates";
@@ -59,7 +56,6 @@ export default {
     data: () => ({
         SIDEBAR_JOB_BOARD,
         SIDEBAR_TEMPLATES,
-        SIDEBAR_METRICS,
         SIDEBAR_PERSONAL
     }),
     computed: {

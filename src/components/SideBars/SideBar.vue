@@ -13,18 +13,16 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import { SIDEBAR_JOB_BOARD, SIDEBAR_METRICS, SIDEBAR_PERSONAL, SIDEBAR_TEMPLATES } from "../../constants/constants";
+import { SIDEBAR_JOB_BOARD, SIDEBAR_PERSONAL, SIDEBAR_TEMPLATES } from "../../constants/constants";
 import Personal from "./Personal/Personal";
-import Metrics from "./Metrics/Metrics";
 import JobBoard from "./JobBoard/JobBoard";
 import Templates from "./Templates/Templates";
 
 export default {
     name: "SideBar",
-    components: { Personal, Metrics, JobBoard, Templates },
+    components: { Personal, JobBoard, Templates },
     data: () => ({
         SIDEBAR_JOB_BOARD,
-        SIDEBAR_METRICS,
         SIDEBAR_PERSONAL,
         SIDEBAR_TEMPLATES
     }),
@@ -39,8 +37,6 @@ export default {
                     return "JobBoard";
                 case SIDEBAR_TEMPLATES:
                     return "Templates";
-                case SIDEBAR_METRICS:
-                    return "Metrics";
                 default:
                     return "";
             }
