@@ -5,8 +5,8 @@
     "description": "Chrome extension that drafts cover letters and outreach messages from your profile and tracks your daily job-board rounds.",
     "type": "module",
     "scripts": {
-        "dev": "vite build --mode content --watch",
-        "build": "vite build --mode content",
+        "dev": "vite build --mode pages && vite build --mode content --watch",
+        "build": "vite build --mode pages && vite build --mode content",
         "typecheck": "vue-tsc --build",
         "lint": "eslint .",
         "format": "prettier --write .",

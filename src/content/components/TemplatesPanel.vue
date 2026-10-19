@@ -44,6 +44,7 @@ import TagField from "./TagField.vue";
 import TextField from "./TextField.vue";
 import { templates, type TemplateKind } from "../../data/templates.ts";
 import { renderTemplate, templateValues, toPlainText } from "../../core/template.ts";
+import { copyText } from "../clipboard.ts";
 import { selectTemplate, state } from "../store.ts";
 
 const COPY_LABEL = "Copy template to clipboard";
@@ -57,12 +58,7 @@ const segments = computed(() => {
 const copyLabel = ref(COPY_LABEL);
 
 async function copy(): Promise<void> {
-    try {
-        await navigator.clipboard.writeText(toPlainText(segments.value));
-        copyLabel.value = "Copied";
-    } catch {
-        copyLabel.value = "This page blocks the clipboard";
-    }
+    copyLabel.value = (await copyText(toPlainText(segments.value))) ? "Copied" : "Copy failed";
     setTimeout(() => (copyLabel.value = COPY_LABEL), 2000);
 }
 </script>
