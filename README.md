@@ -1,92 +1,88 @@
-# Vocation Chrome Extension
+# Vocation
 
-A powerful Chrome extension that streamlines the job search process by automating cover letter generation, outreach messages, and application tracking.
+A Chrome extension that keeps a job search moving without retyping the same details all day. It adds a small dock to the bottom of every page. From there you fill in your profile once, pick a cover letter or outreach template, and copy a finished message with the company, role and contact already in place. A second panel walks you through your job boards each day.
 
-[View Portfolio](https://zachayers.io) | [Chrome Web Store](https://chrome.google.com/webstore)
+Built by [Zachariah Ayers](https://ayers.repair) ([GitHub](https://github.com/ZachariahAyers)).
 
-## About
+## Why it is built this way
 
-Vocation is a comprehensive job search assistant that lives in your browser. Built with Vue.js and modern web technologies, it integrates seamlessly with popular job boards to enhance productivity. Features intelligent templates for cover letters and outreach messages, tracks applications across multiple platforms, and offers metrics to optimize your job search strategy.
-
-## Built With
-
-- Vue.js 3
-- Chrome Extension Manifest V3
-- Webpack
-- TailwindCSS
-- Chrome Storage API
-- Background Service Workers
+- **It lives on the page you are already on.** A job posting, a LinkedIn message or a recruiter email is where the writing happens, so the overlay is a content script rather than a popup you have to switch to.
+- **Your details stay in your browser.** Everything is saved with `chrome.storage.local`. There is no server, no account and no network request. The only API permission is `storage`; the content script matches every page so the dock is always to hand.
+- **Typed text is never treated as markup.** Templates are plain text with placeholders. The renderer splits them into text segments, and Vue prints each one as text, so a value pasted from a web page cannot inject HTML into the page it is shown on.
+- **Missing details are visible.** A placeholder you have not filled stays in the preview under its own name, highlighted, so a message is never copied with a silent gap.
 
 ## Features
 
-- **Smart Templates** - Pre-built templates for cover letters, LinkedIn messages, and follow-ups
-- **Job Board Integration** - Works with Indeed, LinkedIn, Glassdoor, AngelList, and 20+ platforms
-- **Application Tracking** - Save jobs, track application status, and manage your pipeline
-- **Metrics Dashboard** - Visualize application stats, response rates, and search progress
-- **Personal Info Management** - Store and auto-fill your professional details
-- **Overlay Interface** - Non-intrusive UI that appears when needed
-- **Cross-Site Functionality** - Works seamlessly across all job search websites
+- **Profile:** name, email, phone, GitHub username, website, current title, years of experience, a short summary, and tag lists for platforms and skills.
+- **Templates:** a cover letter, five outreach messages (recruiter, engineer, executive, thank-you, rebuttal) and three replies to recruiters (interested, maybe, not interested). Each fills from your profile plus the contact, company, job title and keywords for the role in front of you.
+- **Copy to clipboard:** the filled message is copied as plain text, ready for an email or a message box.
+- **Job board rounds:** a checklist of seventeen job boards. Open one from the list, mark it done, and the list resets the next day.
 
-## Supported Platforms
+## Stack
 
-LinkedIn Jobs, Indeed, Glassdoor, AngelList, Monster, ZipRecruiter, Dice, SimplyHired, CareerBuilder, Hired, Wellfound, RemoteOK, We Work Remotely, FlexJobs, Upwork, Toptal, Guru, Freelancer, Fiverr, PeoplePerHour
+- Vue 3.5 single-file components with `<script setup>` and `defineModel`
+- Vue's `reactive()` as the store, persisted to `chrome.storage.local`
+- Chrome Extensions Manifest V3, a single content script and stylesheet
+- Vite 8 in library mode, emitting one classic script so the page needs no module loader
+- Sass for component styles
+- ESLint 10 with `eslint-plugin-vue`
+- Node's built-in test runner for the template renderer
+- GitHub Actions running lint, tests and the build on every push
 
-## Getting Started
+## Build and load the extension
 
-### Prerequisites
-
-- Chrome Browser
-- Node.js 14.x or higher
-
-### Installation for Development
+Requires Node.js 22.12 or newer.
 
 ```bash
-git clone https://github.com/N73311/vocation-chrome.git
+git clone https://github.com/ZachariahAyers/vocation-chrome.git
 cd vocation-chrome
 npm install
 npm run build
 ```
 
-### Loading in Chrome
+Then load it into Chrome:
 
-1. Open Chrome and navigate to `chrome://extensions/`
-2. Enable "Developer mode"
-3. Click "Load unpacked"
-4. Select the `dist` folder
+1. Open `chrome://extensions`.
+2. Turn on **Developer mode**.
+3. Click **Load unpacked** and choose the `dist` folder.
+4. Open any web page; the dock appears at the bottom centre.
 
-### Development
+## Development
 
 ```bash
-npm run dev    # Start development with hot reload
-npm run build  # Build for production
-npm run test   # Run tests
+npm run dev     # rebuild dist/ on every change; reload the extension to pick it up
+npm run build   # production build into dist/
+npm run lint    # ESLint
+npm test        # template renderer tests
 ```
 
-## Project Structure
+## Project structure
 
 ```
 vocation-chrome/
+├── public/
+│   ├── manifest.json        # Manifest V3, copied into dist/ as is
+│   └── icons/               # extension icons
 ├── src/
-│   ├── background/     # Service worker scripts
-│   ├── content/        # Content scripts for job sites
-│   ├── popup/          # Extension popup UI
-│   ├── overlay/        # Overlay interface components
-│   └── utils/          # Shared utilities
-├── public/             # Static assets
-└── manifest.json       # Extension manifest
+│   ├── main.js              # content script entry: loads saved state, mounts the overlay
+│   ├── App.vue              # overlay root
+│   ├── store.js             # reactive state and chrome.storage persistence
+│   ├── template.js          # placeholder renderer
+│   ├── template.test.js     # renderer tests
+│   ├── components/          # dock, side panel, profile, job board and template panels, form fields
+│   ├── data/
+│   │   ├── templates.js     # message templates
+│   │   └── job-boards.js    # job board list
+│   ├── assets/icons/        # job board and dock icons
+│   └── styles/_theme.scss   # colour and font tokens
+├── eslint.config.js
+└── vite.config.js
 ```
 
-## Privacy & Security
+## Template placeholders
 
-- All data stored locally using Chrome Storage API
-- No external servers or data collection
-- Permissions only for job board domains
-- Open source and auditable
+Templates use `<%-NAME-%>`, where `NAME` is a profile or job field in upper case (`<%-FIRSTNAME-%>`, `<%-COMPANYNAME-%>`). A list field such as skills is joined with commas, and `<%-SKILLS_COUNT-%>` gives its length. `<%-DATE-%>` is today's date. A test checks that every shipped template uses only fields the forms provide.
 
 ## License
 
-Licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE) for details.
-
-## Author
-
-Zachariah Ayers - [zachayers.io](https://zachayers.io)
+Apache License 2.0. See [LICENSE](LICENSE).
