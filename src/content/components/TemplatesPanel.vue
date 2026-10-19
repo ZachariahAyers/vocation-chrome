@@ -1,12 +1,12 @@
 <template>
-    <div class="jx-templates">
-        <div class="jx-template-kinds" role="group" aria-label="Template type">
+    <div class="templates">
+        <div class="template-kinds" role="group" aria-label="Template type">
             <button
                 v-for="kind in kinds"
                 :key="kind"
                 type="button"
-                class="jx-template-kind"
-                :class="{ 'jx-template-kind--active': state.template.kind === kind }"
+                class="template-kind"
+                :class="{ 'template-kind--active': state.template.kind === kind }"
                 :aria-pressed="state.template.kind === kind"
                 @click="selectTemplate(kind)"
             >
@@ -17,19 +17,19 @@
         <select
             v-if="variants.length > 1"
             v-model="state.template.variant"
-            class="jx-template-variant"
+            class="template-variant"
             aria-label="Template variant"
         >
             <option v-for="variant in variants" :key="variant">{{ variant }}</option>
         </select>
 
-        <pre class="jx-preview"><span
+        <pre class="preview"><span
             v-for="(segment, index) in segments"
             :key="index"
-            :class="segment.field && (segment.missing ? 'jx-value jx-value--missing' : 'jx-value')"
+            :class="segment.field && (segment.missing ? 'value value--missing' : 'value')"
         >{{ segment.text }}</span></pre>
 
-        <button type="button" class="jx-copy" @click="copy">{{ copyLabel }}</button>
+        <button type="button" class="copy" @click="copy">{{ copyLabel }}</button>
         <hr />
         <TextField v-model="state.job.contactName" label="Contact name" />
         <TextField v-model="state.job.companyName" label="Company name" />
@@ -64,7 +64,7 @@ async function copy(): Promise<void> {
 </script>
 
 <style lang="scss" scoped>
-.jx-templates {
+.templates {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -74,12 +74,12 @@ async function copy(): Promise<void> {
     }
 }
 
-.jx-template-kinds {
+.template-kinds {
     display: flex;
 }
 
-.jx-template-kind,
-.jx-copy {
+.template-kind,
+.copy {
     padding: 6px 0;
     border: 2px solid $primary;
     background-color: $white;
@@ -91,7 +91,7 @@ async function copy(): Promise<void> {
     transition: background 0.5s ease;
 
     &:hover,
-    &.jx-template-kind--active {
+    &.template-kind--active {
         background-color: $primary;
         color: $white;
     }
@@ -102,7 +102,7 @@ async function copy(): Promise<void> {
     }
 }
 
-.jx-template-kind {
+.template-kind {
     flex: 1;
     margin-left: -2px;
 
@@ -115,12 +115,12 @@ async function copy(): Promise<void> {
     }
 }
 
-.jx-copy {
+.copy {
     padding: 5px;
     border-radius: 4px;
 }
 
-.jx-template-variant {
+.template-variant {
     height: 32px;
     padding: 3px;
     border: 1px solid $gray-500;
@@ -130,7 +130,7 @@ async function copy(): Promise<void> {
     font-size: 12px;
 }
 
-.jx-preview {
+.preview {
     box-sizing: border-box;
     max-height: 50vh;
     margin: 0;
@@ -146,14 +146,14 @@ async function copy(): Promise<void> {
     word-wrap: break-word;
 }
 
-.jx-value {
+.value {
     padding: 1px;
     border-radius: 4px;
     background-color: $success;
     color: $white;
 }
 
-.jx-value--missing {
+.value--missing {
     background-color: $danger;
 }
 </style>

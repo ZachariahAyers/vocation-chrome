@@ -1,13 +1,13 @@
 <template>
     <button
         type="button"
-        class="jx-dock-button"
-        :class="{ 'jx-dock-button--active': ui.panel === panel }"
+        class="dock-button"
+        :class="{ 'dock-button--active': ui.panel === panel }"
         :aria-pressed="ui.panel === panel"
         @click="ui.panel = ui.panel === panel ? null : panel"
     >
-        <span class="jx-dock-icon"><slot /></span>
-        <span class="jx-dock-label">{{ title }}</span>
+        <span class="dock-icon"><slot /></span>
+        <span class="dock-label">{{ title }}</span>
     </button>
 </template>
 
@@ -18,7 +18,7 @@ defineProps<{ panel: NonNullable<typeof ui.panel>; title: string }>();
 </script>
 
 <style lang="scss" scoped>
-.jx-dock-button {
+.dock-button {
     margin: 0 0 0 -2px;
     padding: 6px 12px;
     border: 2px solid $primary;
@@ -41,7 +41,7 @@ defineProps<{ panel: NonNullable<typeof ui.panel>; title: string }>();
     }
 
     &:hover,
-    &.jx-dock-button--active {
+    &.dock-button--active {
         background-color: $primary;
         color: $white;
     }
@@ -52,7 +52,7 @@ defineProps<{ panel: NonNullable<typeof ui.panel>; title: string }>();
     }
 }
 
-.jx-dock-icon {
+.dock-icon {
     display: flex;
     align-items: center;
     justify-content: center;

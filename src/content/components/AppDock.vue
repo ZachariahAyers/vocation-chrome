@@ -1,18 +1,18 @@
 <template>
-    <div class="jx-dock">
+    <div class="dock">
         <button
             type="button"
-            class="jx-dock-toggle"
-            :class="{ 'jx-dock-toggle--open': ui.dockOpen }"
+            class="dock-toggle"
+            :class="{ 'dock-toggle--open': ui.dockOpen }"
             :aria-expanded="ui.dockOpen"
             @click="ui.dockOpen = !ui.dockOpen"
         >
-            <span class="jx-tooltip">{{ ui.dockOpen ? "Hide" : "Show" }}</span>
+            <span class="tooltip">{{ ui.dockOpen ? "Hide" : "Show" }}</span>
             <IconWork v-if="!ui.dockOpen" />
         </button>
 
-        <Transition name="jx-collapse">
-            <div v-if="ui.dockOpen" class="jx-dock-buttons">
+        <Transition name="collapse">
+            <div v-if="ui.dockOpen" class="dock-buttons">
                 <DockButton panel="profile" title="Personal"><IconPersonal /></DockButton>
                 <DockButton panel="boards" title="Job Board"><IconJobBoard /></DockButton>
                 <DockButton panel="templates" title="Templates"><IconTemplates /></DockButton>
@@ -31,7 +31,7 @@ import { ui } from "../store.ts";
 </script>
 
 <style lang="scss" scoped>
-.jx-dock {
+.dock {
     position: fixed;
     bottom: 0;
     left: 50%;
@@ -42,7 +42,7 @@ import { ui } from "../store.ts";
     pointer-events: auto;
 }
 
-.jx-dock-toggle {
+.dock-toggle {
     position: relative;
     display: flex;
     align-items: center;
@@ -74,28 +74,28 @@ import { ui } from "../store.ts";
     }
 }
 
-.jx-dock-toggle--open {
+.dock-toggle--open {
     width: 100%;
     height: 14px;
 }
 
-.jx-dock-buttons {
+.dock-buttons {
     display: flex;
     max-height: 200px;
     box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-.jx-collapse-enter-active,
-.jx-collapse-leave-active {
+.collapse-enter-active,
+.collapse-leave-active {
     transition: max-height 0.5s;
 }
 
-.jx-collapse-enter-from,
-.jx-collapse-leave-to {
+.collapse-enter-from,
+.collapse-leave-to {
     max-height: 0;
 }
 
-.jx-tooltip {
+.tooltip {
     position: absolute;
     bottom: 100%;
     margin-bottom: 15px;
@@ -124,8 +124,8 @@ import { ui } from "../store.ts";
     }
 }
 
-.jx-dock-toggle:hover .jx-tooltip,
-.jx-dock-toggle:focus-visible .jx-tooltip {
+.dock-toggle:hover .tooltip,
+.dock-toggle:focus-visible .tooltip {
     opacity: 1;
     transform: translateY(0);
 }

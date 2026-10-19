@@ -1,10 +1,10 @@
 <template>
-    <Transition name="jx-fade">
-        <div v-if="ui.panel" class="jx-side">
-            <aside class="jx-side-content" :aria-label="panels[ui.panel].title">
+    <Transition name="fade">
+        <div v-if="ui.panel" class="side" @keydown.esc="ui.panel = null">
+            <aside class="side-content" :aria-label="panels[ui.panel].title">
                 <component :is="panels[ui.panel].component" />
             </aside>
-            <div class="jx-side-backdrop" @click="ui.panel = null" />
+            <div class="side-backdrop" @click="ui.panel = null" />
         </div>
     </Transition>
 </template>
@@ -23,14 +23,14 @@ const panels = {
 </script>
 
 <style lang="scss" scoped>
-.jx-side {
+.side {
     position: fixed;
     inset: 0;
     display: flex;
     pointer-events: auto;
 }
 
-.jx-side-content {
+.side-content {
     box-sizing: border-box;
     width: 260px;
     padding: 16px 12px 60px 15px;
@@ -42,18 +42,18 @@ const panels = {
     font-size: 14px;
 }
 
-.jx-side-backdrop {
+.side-backdrop {
     flex: 1;
     background: rgba(0, 0, 0, 0.4);
 }
 
-.jx-fade-enter-active,
-.jx-fade-leave-active {
+.fade-enter-active,
+.fade-leave-active {
     transition: opacity 0.2s;
 }
 
-.jx-fade-enter-from,
-.jx-fade-leave-to {
+.fade-enter-from,
+.fade-leave-to {
     opacity: 0;
 }
 </style>

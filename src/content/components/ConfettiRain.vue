@@ -1,6 +1,6 @@
 <template>
-    <div class="jx-confetti" aria-hidden="true">
-        <div v-for="index in 100" :key="index" :class="`jx-confetti-${index}`" />
+    <div class="confetti" aria-hidden="true">
+        <div v-for="index in 100" :key="index" :class="`confetti-${index}`" />
     </div>
 </template>
 
@@ -10,13 +10,13 @@
 
 $colors: (#d13447, #ffbf00, #263672);
 
-.jx-confetti {
+.confetti {
     position: fixed;
     inset: 0;
     overflow: hidden;
 }
 
-[class^="jx-confetti-"] {
+[class^="confetti-"] {
     position: absolute;
 }
 
@@ -24,7 +24,7 @@ $colors: (#d13447, #ffbf00, #263672);
     $w: math.random(8);
     $l: math.random(150);
 
-    .jx-confetti-#{$i} {
+    .confetti-#{$i} {
         top: -10%;
         left: $l * 1%;
         width: $w * 1px;
@@ -32,10 +32,10 @@ $colors: (#d13447, #ffbf00, #263672);
         background-color: list.nth($colors, math.random(3));
         opacity: math.random() + 0.5;
         transform: rotate(math.random() * 360deg);
-        animation: jx-drop-#{$i} (4s + math.random() * 1s) (math.random() * 1s) forwards;
+        animation: drop-#{$i} (4s + math.random() * 1s) (math.random() * 1s) forwards;
     }
 
-    @keyframes jx-drop-#{$i} {
+    @keyframes drop-#{$i} {
         100% {
             top: 110%;
             left: ($l + math.random(15)) * 1%;

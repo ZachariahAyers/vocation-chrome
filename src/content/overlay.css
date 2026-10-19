@@ -1,0 +1,4 @@
+/* Inside the shadow root: inherited page styles stop at the host. */
+:host {
+    all: initial;
+}

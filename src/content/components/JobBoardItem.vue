@@ -1,12 +1,12 @@
 <template>
-    <li class="jx-board">
-        <a class="jx-board-link" :href="board.url">
-            <span class="jx-board-logo"><component :is="board.icon" /></span>
+    <li class="board">
+        <a class="board-link" :href="board.url">
+            <span class="board-logo"><component :is="board.icon" /></span>
             {{ board.name }}
         </a>
         <button
             type="button"
-            class="jx-board-done"
+            class="board-done"
             :aria-label="`Mark ${board.name} done for today`"
             @click="markBoardDone(board.name)"
         >
@@ -23,7 +23,7 @@ defineProps<{ board: JobBoard }>();
 </script>
 
 <style lang="scss" scoped>
-.jx-board {
+.board {
     position: relative;
     display: flex;
     width: 90%;
@@ -31,7 +31,7 @@ defineProps<{ board: JobBoard }>();
     margin: 0 auto 10px;
 }
 
-.jx-board-link {
+.board-link {
     flex: 1;
     display: flex;
     align-items: center;
@@ -55,12 +55,12 @@ defineProps<{ board: JobBoard }>();
         color: $white;
     }
 
-    &:hover .jx-board-logo {
-        animation: jx-wiggle 1s ease-in-out;
+    &:hover .board-logo {
+        animation: wiggle 1s ease-in-out;
     }
 }
 
-.jx-board-logo {
+.board-logo {
     position: absolute;
     top: -6px;
     left: -6px;
@@ -81,7 +81,7 @@ defineProps<{ board: JobBoard }>();
     }
 }
 
-.jx-board-done {
+.board-done {
     width: 16px;
     padding: 0;
     border: none;
@@ -101,7 +101,7 @@ defineProps<{ board: JobBoard }>();
     }
 }
 
-@keyframes jx-wiggle {
+@keyframes wiggle {
     0% {
         transform: rotate(10deg);
     }

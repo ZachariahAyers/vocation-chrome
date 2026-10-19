@@ -1,5 +1,5 @@
 <template>
-    <div class="jx-root">
+    <div class="root">
         <ConfettiRain v-if="allBoardsDone" />
         <AppDock />
         <SidePanel />
@@ -14,7 +14,7 @@ import { allBoardsDone } from "./store.ts";
 </script>
 
 <style lang="scss" scoped>
-.jx-root {
+.root {
     position: fixed;
     inset: 0;
     z-index: 2147483000;

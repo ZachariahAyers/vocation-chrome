@@ -1,10 +1,10 @@
 <template>
     <div>
-        <div v-if="allBoardsDone" class="jx-boards-done">
-            <IconAward class="jx-award" />
+        <div v-if="allBoardsDone" class="boards-done">
+            <IconAward class="award" />
             <h3>Congratulations! You've applied to all of your job boards for the day!</h3>
         </div>
-        <TransitionGroup v-else name="jx-board" tag="ul" class="jx-boards">
+        <TransitionGroup v-else name="board" tag="ul" class="boards">
             <JobBoardItem v-for="board in remaining" :key="board.name" :board="board" />
         </TransitionGroup>
     </div>
@@ -21,31 +21,31 @@ const remaining = computed(() => jobBoards.filter((board) => !state.boards.done.
 </script>
 
 <style lang="scss" scoped>
-.jx-boards {
+.boards {
     margin: 0;
     padding: 6px 0 0;
     list-style: none;
 }
 
-.jx-boards-done {
+.boards-done {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
 }
 
-.jx-award {
+.award {
     width: 80%;
     height: auto;
 }
 
-.jx-board-leave-active {
+.board-leave-active {
     transition:
         opacity 0.3s ease-out,
         transform 0.3s ease-out;
 }
 
-.jx-board-leave-to {
+.board-leave-to {
     opacity: 0;
     transform: translateX(-30px);
 }

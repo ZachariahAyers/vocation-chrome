@@ -1,23 +1,23 @@
 <template>
-    <div class="jx-field">
+    <div class="field">
         <textarea
             v-if="multiline"
             :id="id"
             v-model="model"
-            class="jx-input jx-input--multiline"
-            :class="{ 'jx-input--filled': model }"
+            class="input input--multiline"
+            :class="{ 'input--filled': model }"
             rows="8"
         />
         <input
             v-else
             :id="id"
             v-model="model"
-            class="jx-input"
-            :class="{ 'jx-input--filled': model }"
+            class="input"
+            :class="{ 'input--filled': model }"
             :type="type"
             :inputmode="numeric ? 'numeric' : undefined"
         />
-        <label :for="id" class="jx-label">{{ label }}</label>
+        <label :for="id" class="label">{{ label }}</label>
     </div>
 </template>
 
@@ -37,12 +37,12 @@ const id = useId();
 </script>
 
 <style lang="scss" scoped>
-.jx-field {
+.field {
     position: relative;
     margin-top: 5px;
 }
 
-.jx-input {
+.input {
     box-sizing: border-box;
     display: block;
     width: 100%;
@@ -62,13 +62,13 @@ const id = useId();
     }
 }
 
-.jx-input--multiline {
+.input--multiline {
     height: auto;
     line-height: 1.6;
     resize: none;
 }
 
-.jx-label {
+.label {
     position: absolute;
     top: 2px;
     left: 16px;
@@ -79,8 +79,8 @@ const id = useId();
     transition: all 0.1s ease-in-out;
 }
 
-.jx-input:focus ~ .jx-label,
-.jx-input--filled ~ .jx-label {
+.input:focus ~ .label,
+.input--filled ~ .label {
     top: -14px;
     padding: 0 2px;
     border-radius: 100px;
@@ -88,7 +88,7 @@ const id = useId();
     font-size: 14px;
 }
 
-.jx-input:focus ~ .jx-label {
+.input:focus ~ .label {
     color: $primary;
 }
 </style>

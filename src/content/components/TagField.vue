@@ -1,18 +1,18 @@
 <template>
-    <div class="jx-tags">
-        <label :for="id" class="jx-tags-label">{{ label }}</label>
-        <ul class="jx-tags-box">
-            <li v-for="(tag, index) in model" :key="tag" class="jx-tag">
+    <div class="tags">
+        <label :for="id" class="tags-label">{{ label }}</label>
+        <ul class="tags-box">
+            <li v-for="(tag, index) in model" :key="tag" class="tag">
                 {{ tag }}
-                <button type="button" class="jx-tag-remove" :aria-label="`Remove ${tag}`" @click="remove(index)">
+                <button type="button" class="tag-remove" :aria-label="`Remove ${tag}`" @click="remove(index)">
                     &times;
                 </button>
             </li>
-            <li class="jx-tags-entry">
+            <li class="tags-entry">
                 <input
                     :id="id"
                     v-model="draft"
-                    class="jx-tags-input"
+                    class="tags-input"
                     :placeholder="`Add ${label.toLowerCase()}`"
                     @keydown="onKeydown"
                     @blur="add"
@@ -52,17 +52,17 @@ function remove(index: number): void {
 </script>
 
 <style lang="scss" scoped>
-.jx-tags {
+.tags {
     margin-bottom: 12px;
 }
 
-.jx-tags-label {
+.tags-label {
     display: block;
     margin-bottom: 4px;
     color: $gray-600;
 }
 
-.jx-tags-box {
+.tags-box {
     display: flex;
     flex-wrap: wrap;
     gap: 4px;
@@ -81,7 +81,7 @@ function remove(index: number): void {
     }
 }
 
-.jx-tag {
+.tag {
     display: flex;
     align-items: center;
     gap: 4px;
@@ -91,7 +91,7 @@ function remove(index: number): void {
     color: $white;
 }
 
-.jx-tag-remove {
+.tag-remove {
     padding: 0;
     border: none;
     background: none;
@@ -101,12 +101,12 @@ function remove(index: number): void {
     cursor: pointer;
 }
 
-.jx-tags-entry {
+.tags-entry {
     flex: 1;
     min-width: 80px;
 }
 
-.jx-tags-input {
+.tags-input {
     box-sizing: border-box;
     width: 100%;
     height: 28px;
