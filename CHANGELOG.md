@@ -6,7 +6,7 @@ All notable changes to this project are listed here. The format follows [Keep a 
 
 ## [2.0.0] - 2026-10-19
 
-A rebuild on current tooling. The features are the same as in 1; the way each one is built is new.
+Built on current tooling.
 
 ### Changed
 
@@ -34,10 +34,5 @@ A rebuild on current tooling. The features are the same as in 1; the way each on
 - The empty popup page, the unfinished metrics panel and the toolbar button that did nothing.
 - Unused dependencies: Vuex, vuex-persist, Vue Router, axios, Popper, moment, html-to-text and two tag-input packages.
 
-## [1] - 2020-09-04 to 2025-10-05
-
-The original Vue 2 and Manifest V2 extension: an overlay dock with a profile form, cover letter, outreach and response templates filled from it, and a daily checklist of job boards. Tagged `v1` at commit 16450a6.
-
 [Unreleased]: https://github.com/ZachariahAyers/vocation-chrome/compare/v2.0.0...HEAD
-[2.0.0]: https://github.com/ZachariahAyers/vocation-chrome/compare/v1...v2.0.0
-[1]: https://github.com/ZachariahAyers/vocation-chrome/tree/v1
+[2.0.0]: https://github.com/ZachariahAyers/vocation-chrome/tree/v2.0.0
