@@ -1,7 +1,6 @@
 <template>
     <div>
         <div v-if="allBoardsDone" class="boards-done">
-            <IconAward class="award" />
             <h3>Congratulations! You've applied to all of your job boards for the day!</h3>
         </div>
         <TransitionGroup v-else name="board" tag="ul" class="boards">
@@ -12,7 +11,6 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
-import IconAward from "../../assets/icons/IconAward.vue";
 import JobBoardItem from "./JobBoardItem.vue";
 import { jobBoards } from "../../data/job-boards.ts";
 import { allBoardsDone, state } from "../store.ts";
@@ -32,11 +30,6 @@ const remaining = computed(() => jobBoards.filter((board) => !state.boards.done.
     flex-direction: column;
     align-items: center;
     text-align: center;
-}
-
-.award {
-    width: 80%;
-    height: auto;
 }
 
 .board-leave-active {

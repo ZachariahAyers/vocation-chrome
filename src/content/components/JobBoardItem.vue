@@ -1,7 +1,7 @@
 <template>
     <li class="board">
         <a class="board-link" :href="board.url">
-            <span class="board-logo"><component :is="board.icon" /></span>
+            <BoardMark class="board-logo" :name="board.name" />
             {{ board.name }}
         </a>
         <button
@@ -16,6 +16,7 @@
 </template>
 
 <script setup lang="ts">
+import BoardMark from "./BoardMark.vue";
 import type { JobBoard } from "../../data/job-boards.ts";
 import { markBoardDone } from "../store.ts";
 
@@ -64,21 +65,6 @@ defineProps<{ board: JobBoard }>();
     position: absolute;
     top: -6px;
     left: -6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
-    border: 2px solid $info;
-    border-radius: 100px;
-    background: $white;
-
-    & :deep(svg) {
-        width: 80%;
-        height: 80%;
-        border-radius: 100px;
-        filter: grayscale(1) brightness(0.4);
-    }
 }
 
 .board-done {
