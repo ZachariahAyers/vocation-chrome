@@ -6,15 +6,9 @@
     "homepage_url": "https://github.com/ZachariahAyers/vocation-chrome",
     "icons": {
         "16": "icons/16.png",
+        "32": "icons/32.png",
         "48": "icons/48.png",
         "128": "icons/128.png"
-    },
-    "action": {
-        "default_title": "Vocation",
-        "default_icon": {
-            "19": "icons/19.png",
-            "38": "icons/38.png"
-        }
     },
     "permissions": ["storage", "offscreen", "clipboardWrite"],
     "background": {

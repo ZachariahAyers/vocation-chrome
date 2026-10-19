@@ -7,6 +7,7 @@
     "scripts": {
         "dev": "vite build --mode pages && vite build --mode content --watch",
         "build": "vite build --mode pages && vite build --mode content",
+        "icons": "node scripts/generate-icons.ts",
         "typecheck": "vue-tsc --build",
         "lint": "eslint .",
         "format": "prettier --write .",
