@@ -4,7 +4,7 @@ import pluginVue from "eslint-plugin-vue";
 
 export default withVueTs(
     // Icon components wrap artwork and keep its markup as authored.
-    { ignores: ["dist/", "src/assets/icons/"] },
+    { ignores: ["dist/", "demo-dist/", "src/assets/icons/"] },
     pluginVue.configs["flat/recommended"],
     vueTsConfigs.strictTypeChecked,
     prettier,

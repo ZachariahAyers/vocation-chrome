@@ -17,6 +17,13 @@ export const palette = {
     gray900: "#212529",
     shadow: "rgba(0, 0, 0, 0.2)",
     scrim: "rgba(0, 0, 0, 0.4)",
+    demoCream: "#f4efe3",
+    demoCreamDark: "#e6dcc9",
+    demoPaper: "#fffdf7",
+    demoGreen: "#315c4b",
+    demoGreenDark: "#193b30",
+    demoGreenLight: "#d8e6dc",
+    demoBrass: "#b4834a",
 } as const;
 
 export const font = "monospace";

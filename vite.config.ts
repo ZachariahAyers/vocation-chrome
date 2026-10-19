@@ -14,6 +14,19 @@ export default defineConfig(({ mode }): UserConfig => {
         return { ...shared, test: { environment: "happy-dom", include: ["src/**/*.test.ts"] } };
     }
 
+    if (mode === "demo") {
+        return {
+            ...shared,
+            root: "src/demo",
+            base: "/opensource/vocation/",
+            publicDir: false,
+            build: {
+                outDir: resolve(import.meta.dirname, "demo-dist"),
+                emptyOutDir: true,
+            },
+        };
+    }
+
     // Extension pages: the service worker and the offscreen clipboard document, as ES modules.
     // Built first, because it empties dist/.
     if (mode === "pages") {

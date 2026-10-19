@@ -4,6 +4,8 @@
 
 A Chrome extension that drafts cover letters and outreach messages from your profile and tracks your daily job-board rounds.
 
+[Open the browser demo](https://ayers.repair/opensource/vocation/) to edit a fictional profile and role, preview and copy the real templates, and use the daily checklist without installing the extension.
+
 ## Features
 
 - A profile you fill in once: name, contact details, title, experience, summary, platforms and skills
@@ -37,6 +39,7 @@ npm run typecheck
 npm run lint
 npm run format:check
 npm test
+npm run build:demo     # static browser demo in demo-dist/
 npm run check          # all of the above plus a build, as CI runs it
 ```
 

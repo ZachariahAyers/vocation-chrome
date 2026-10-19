@@ -53,6 +53,17 @@ describe("TemplatesPanel", () => {
         expect(wrapper.get("button.copy").text()).toBe("Copied");
     });
 
+    it("uses a supplied clipboard adapter", async () => {
+        const copyToClipboard = vi.fn(() => Promise.resolve(true));
+        const wrapper = mount(TemplatesPanel, { props: { copyToClipboard } });
+
+        await wrapper.get("button.copy").trigger("click");
+        await flushPromises();
+
+        expect(copyToClipboard).toHaveBeenCalledOnce();
+        expect(copyText).not.toHaveBeenCalled();
+    });
+
     it("says so when the copy fails", async () => {
         vi.mocked(copyText).mockResolvedValueOnce(false);
         const wrapper = mount(TemplatesPanel);

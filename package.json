@@ -6,7 +6,9 @@
     "type": "module",
     "scripts": {
         "dev": "vite build --mode pages && vite build --mode content --watch",
-        "build": "vite build --mode pages && vite build --mode content",
+        "build": "npm run build:extension && npm run build:demo",
+        "build:extension": "vite build --mode pages && vite build --mode content",
+        "build:demo": "vite build --mode demo",
         "icons": "node scripts/generate-icons.ts",
         "typecheck": "vue-tsc --build",
         "lint": "eslint .",

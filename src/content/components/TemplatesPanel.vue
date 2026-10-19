@@ -48,6 +48,9 @@ import { copyText } from "../clipboard.ts";
 import { selectTemplate, state } from "../store.ts";
 
 const COPY_LABEL = "Copy template to clipboard";
+const { copyToClipboard = copyText } = defineProps<{
+    copyToClipboard?: (text: string) => Promise<boolean>;
+}>();
 
 const kinds = Object.keys(templates) as TemplateKind[];
 const variants = computed(() => Object.keys(templates[state.template.kind]));
@@ -58,7 +61,7 @@ const segments = computed(() => {
 const copyLabel = ref(COPY_LABEL);
 
 async function copy(): Promise<void> {
-    copyLabel.value = (await copyText(toPlainText(segments.value))) ? "Copied" : "Copy failed";
+    copyLabel.value = (await copyToClipboard(toPlainText(segments.value))) ? "Copied" : "Copy failed";
     setTimeout(() => (copyLabel.value = COPY_LABEL), 2000);
 }
 </script>

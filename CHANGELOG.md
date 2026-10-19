@@ -4,6 +4,10 @@ All notable changes to this project are listed here. The format follows [Keep a 
 
 ## [Unreleased]
 
+### Added
+
+- A standalone browser demo at `/opensource/vocation/` with a fictional editable profile, live template output, browser clipboard copy, and the daily job-board checklist.
+
 ## [2.0.0] - 2026-10-19
 
 Chrome extension (Vue 3, Manifest V3) that drafts cover letters and recruiter messages from your saved profile, with a daily checklist of job boards.

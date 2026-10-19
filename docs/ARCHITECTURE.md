@@ -25,6 +25,7 @@ Vocation is a Manifest V3 Chrome extension with three execution contexts and no 
 | `src/background/` | service worker     | The clipboard relay.                                                                                                                                                                   |
 | `src/offscreen/`  | offscreen document | The page that performs the copy.                                                                                                                                                       |
 | `src/data/`       | any                | Message templates and the job-board list.                                                                                                                                              |
+| `src/demo/`       | browser page       | Standalone demo using the real Vue panels and core with localStorage and navigator.clipboard adapters.                                                                                 |
 | `public/`         | none               | `manifest.json` and the generated icons, copied into `dist/` unchanged.                                                                                                                |
 | `scripts/`        | Node               | `generate-icons.ts` draws `public/icons/*.png` from palette tokens.                                                                                                                    |
 
@@ -60,6 +61,10 @@ A content script is held to the page's clipboard rules, and `navigator.clipboard
 
 1. `--mode pages`, rooted at `src/`: the service worker and offscreen document as ES modules, plus `public/`. It empties `dist/`.
 2. `--mode content`: the overlay in library mode as a single IIFE (`content.js`) and its stylesheet (`content.css`). Content scripts load as classic scripts, so the overlay cannot be split into ES chunks.
+
+The standard build also runs `--mode demo`, which writes a static site to `demo-dist/` with asset paths rooted at `/opensource/vocation/`. The demo gives `syncWithStorage` a localStorage adapter and gives the template panel a browser clipboard function; the extension keeps its default Chrome storage and offscreen clipboard paths.
+
+On a push to `master`, CI publishes `demo-dist/` to the matching path after the repository check passes. Pull requests build the demo through that check but never publish it.
 
 Sass receives the palette as variables through `css.preprocessorOptions.scss.additionalData`, so a colour exists only in `src/core/palette.ts`.
 

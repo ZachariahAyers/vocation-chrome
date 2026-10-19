@@ -2,7 +2,7 @@ import { computed, reactive } from "vue";
 import { jobBoards } from "../data/job-boards.ts";
 import { templates, type TemplateKind } from "../data/templates.ts";
 import { defaultState, today, type State } from "../core/state.ts";
-import { syncWithStorage } from "./sync.ts";
+import { syncWithStorage, type StorageBackend } from "./sync.ts";
 
 /** Saved to chrome.storage.local, so the profile follows the user from site to site. */
 export const state: State = reactive(defaultState());
@@ -24,4 +24,4 @@ export function selectTemplate(kind: TemplateKind, variant: string = Object.keys
     Object.assign(state.template, { kind, variant });
 }
 
-export const loadState = (): Promise<void> => syncWithStorage(state);
+export const loadState = (storage?: StorageBackend): Promise<void> => syncWithStorage(state, storage);
