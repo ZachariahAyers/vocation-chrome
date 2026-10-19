@@ -1,9 +1,8 @@
-import { computed, reactive, watch } from "vue";
+import { computed, reactive } from "vue";
 import { jobBoards } from "../data/job-boards.ts";
 import { templates, type TemplateKind } from "../data/templates.ts";
-import { defaultState, normalizeSection, sections, today, type State } from "../core/state.ts";
-
-const STORAGE_KEY = "vocation";
+import { defaultState, today, type State } from "../core/state.ts";
+import { syncWithStorage } from "./sync.ts";
 
 /** Saved to chrome.storage.local, so the profile follows the user from site to site. */
 export const state: State = reactive(defaultState());
@@ -25,12 +24,4 @@ export function selectTemplate(kind: TemplateKind, variant: string = Object.keys
     Object.assign(state.template, { kind, variant });
 }
 
-export async function loadState(): Promise<void> {
-    const { [STORAGE_KEY]: saved = {} } = await chrome.storage.local.get(STORAGE_KEY);
-    for (const section of sections) {
-        Object.assign(state[section], normalizeSection(section, (saved as Partial<State>)[section]));
-    }
-    watch(state, () => void chrome.storage.local.set({ [STORAGE_KEY]: JSON.parse(JSON.stringify(state)) }), {
-        deep: true,
-    });
-}
+export const loadState = (): Promise<void> => syncWithStorage(state);
