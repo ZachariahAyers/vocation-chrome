@@ -9,11 +9,11 @@
     </Transition>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import JobBoardPanel from "./JobBoardPanel.vue";
 import ProfilePanel from "./ProfilePanel.vue";
 import TemplatesPanel from "./TemplatesPanel.vue";
-import { ui } from "../store.js";
+import { ui } from "../store.ts";
 
 const panels = {
     profile: { title: "Personal", component: ProfilePanel },
@@ -23,8 +23,6 @@ const panels = {
 </script>
 
 <style lang="scss" scoped>
-@use "../styles/theme" as *;
-
 .jx-side {
     position: fixed;
     inset: 0;

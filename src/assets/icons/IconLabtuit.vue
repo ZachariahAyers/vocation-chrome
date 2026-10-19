@@ -6,13 +6,6 @@
                y="36" />
     </svg>
 </template>
-
-<script>
-export default {
-    name: "IconLabtuit"
-};
-</script>
-
 <style scoped>
 
 </style>

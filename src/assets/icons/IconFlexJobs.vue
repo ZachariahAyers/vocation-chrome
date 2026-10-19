@@ -6,13 +6,6 @@
     </svg>
 
 </template>
-
-<script>
-export default {
-    name: "IconFlexJobs"
-};
-</script>
-
 <style scoped>
 
 </style>

@@ -116,4 +116,6 @@ export const templates = {
         Maybe: RESPONSE_MAYBE,
         Uninterested: RESPONSE_UNINTERESTED,
     },
-};
+} as const satisfies Record<string, Record<string, string>>;
+
+export type TemplateKind = keyof typeof templates;

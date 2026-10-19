@@ -6,13 +6,6 @@
                y="24" />
     </svg>
 </template>
-
-<script>
-export default {
-    name: "IconSimplyHired"
-};
-</script>
-
 <style scoped>
 
 </style>

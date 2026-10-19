@@ -6,13 +6,6 @@
                y="36" />
     </svg>
 </template>
-
-<script>
-export default {
-    name: "IconLinkedIn"
-};
-</script>
-
 <style scoped>
 
 </style>

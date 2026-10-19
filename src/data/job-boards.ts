@@ -1,3 +1,4 @@
+import type { Component } from "vue";
 import IconAngelList from "../assets/icons/IconAngelList.vue";
 import IconCrunchBoard from "../assets/icons/IconCrunchBoard.vue";
 import IconDice from "../assets/icons/IconDice.vue";
@@ -16,7 +17,13 @@ import IconWeWorkRemotely from "../assets/icons/IconWeWorkRemotely.vue";
 import IconZipRecruiter from "../assets/icons/IconZipRecruiter.vue";
 import IconUnderdog from "../assets/icons/IconUnderdog.vue";
 
-export const jobBoards = [
+export interface JobBoard {
+    name: string;
+    url: string;
+    icon: Component;
+}
+
+export const jobBoards: JobBoard[] = [
     {
         name: "Wellfound",
         url: "https://wellfound.com/",

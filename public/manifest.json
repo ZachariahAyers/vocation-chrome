@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Vocation",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "description": "Draft cover letters and outreach messages from your profile, and work through your job boards each day.",
     "homepage_url": "https://github.com/ZachariahAyers/vocation-chrome",
     "icons": {

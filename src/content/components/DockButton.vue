@@ -11,18 +11,13 @@
     </button>
 </template>
 
-<script setup>
-import { ui } from "../store.js";
+<script setup lang="ts">
+import { ui } from "../store.ts";
 
-defineProps({
-    panel: { type: String, required: true },
-    title: { type: String, required: true },
-});
+defineProps<{ panel: NonNullable<typeof ui.panel>; title: string }>();
 </script>
 
 <style lang="scss" scoped>
-@use "../styles/theme" as *;
-
 .jx-dock-button {
     margin: 0 0 0 -2px;
     padding: 6px 12px;

@@ -15,13 +15,6 @@
         />
     </svg>
 </template>
-
-<script>
-export default {
-    name: "IconCrunchBoard",
-};
-</script>
-
 <style scoped>
 svg image {
     fill: blue;

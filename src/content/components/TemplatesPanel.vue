@@ -2,7 +2,7 @@
     <div class="jx-templates">
         <div class="jx-template-kinds" role="group" aria-label="Template type">
             <button
-                v-for="kind in Object.keys(templates)"
+                v-for="kind in kinds"
                 :key="kind"
                 type="button"
                 class="jx-template-kind"
@@ -30,7 +30,7 @@
         >{{ segment.text }}</span></pre>
 
         <button type="button" class="jx-copy" @click="copy">{{ copyLabel }}</button>
-        <hr>
+        <hr />
         <TextField v-model="state.job.contactName" label="Contact name" />
         <TextField v-model="state.job.companyName" label="Company name" />
         <TextField v-model="state.job.jobTitle" label="Job title" />
@@ -38,26 +38,25 @@
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed, ref } from "vue";
 import TagField from "./TagField.vue";
 import TextField from "./TextField.vue";
-import { templates } from "../data/templates.js";
-import { renderTemplate, templateValues, toPlainText } from "../template.js";
-import { selectTemplate, state } from "../store.js";
+import { templates, type TemplateKind } from "../../data/templates.ts";
+import { renderTemplate, templateValues, toPlainText } from "../../core/template.ts";
+import { selectTemplate, state } from "../store.ts";
 
 const COPY_LABEL = "Copy template to clipboard";
 
+const kinds = Object.keys(templates) as TemplateKind[];
 const variants = computed(() => Object.keys(templates[state.template.kind]));
-const segments = computed(() =>
-    renderTemplate(
-        templates[state.template.kind][state.template.variant],
-        templateValues(state.profile, state.job),
-    ),
-);
+const segments = computed(() => {
+    const options: Record<string, string> = templates[state.template.kind];
+    return renderTemplate(options[state.template.variant] ?? "", templateValues(state.profile, state.job));
+});
 const copyLabel = ref(COPY_LABEL);
 
-async function copy() {
+async function copy(): Promise<void> {
     try {
         await navigator.clipboard.writeText(toPlainText(segments.value));
         copyLabel.value = "Copied";
@@ -69,8 +68,6 @@ async function copy() {
 </script>
 
 <style lang="scss" scoped>
-@use "../styles/theme" as *;
-
 .jx-templates {
     display: flex;
     flex-direction: column;
@@ -156,11 +153,11 @@ async function copy() {
 .jx-value {
     padding: 1px;
     border-radius: 4px;
-    background-color: $teal;
+    background-color: $success;
     color: $white;
 }
 
 .jx-value--missing {
-    background-color: $red;
+    background-color: $danger;
 }
 </style>

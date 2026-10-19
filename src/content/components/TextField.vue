@@ -15,28 +15,28 @@
             class="jx-input"
             :class="{ 'jx-input--filled': model }"
             :type="type"
-            :min="type === 'number' ? 0 : undefined"
-        >
+            :inputmode="numeric ? 'numeric' : undefined"
+        />
         <label :for="id" class="jx-label">{{ label }}</label>
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { useId } from "vue";
 
-defineProps({
-    label: { type: String, required: true },
-    type: { type: String, default: "text" },
-    multiline: { type: Boolean, default: false },
-});
+const { type = "text" } = defineProps<{
+    label: string;
+    type?: string;
+    /** Brings up a number keypad while keeping the value a string. */
+    numeric?: boolean;
+    multiline?: boolean;
+}>();
 
-const model = defineModel({ type: [String, Number], default: "" });
+const model = defineModel<string>({ required: true });
 const id = useId();
 </script>
 
 <style lang="scss" scoped>
-@use "../styles/theme" as *;
-
 .jx-field {
     position: relative;
     margin-top: 5px;

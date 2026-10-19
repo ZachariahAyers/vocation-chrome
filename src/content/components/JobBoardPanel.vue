@@ -10,12 +10,12 @@
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed } from "vue";
-import IconAward from "../assets/icons/IconAward.vue";
+import IconAward from "../../assets/icons/IconAward.vue";
 import JobBoardItem from "./JobBoardItem.vue";
-import { jobBoards } from "../data/job-boards.js";
-import { allBoardsDone, state } from "../store.js";
+import { jobBoards } from "../../data/job-boards.ts";
+import { allBoardsDone, state } from "../store.ts";
 
 const remaining = computed(() => jobBoards.filter((board) => !state.boards.done.includes(board.name)));
 </script>
@@ -40,7 +40,9 @@ const remaining = computed(() => jobBoards.filter((board) => !state.boards.done.
 }
 
 .jx-board-leave-active {
-    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+    transition:
+        opacity 0.3s ease-out,
+        transform 0.3s ease-out;
 }
 
 .jx-board-leave-to {

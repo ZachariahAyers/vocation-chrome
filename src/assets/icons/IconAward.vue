@@ -27,10 +27,3 @@
         <path d="m422 497c0 8.398438-6.597656 15-15 15h-151v-30h151c8.402344 0 15 6.597656 15 15zm0 0" fill="#465a61" />
     </svg>
 </template>
-
-<script>
-export default {
-    name: "icon_Award"
-};
-</script>
-

@@ -6,13 +6,6 @@
                y="46" />
     </svg>
 </template>
-
-<script>
-export default {
-    name: "IconIndeed"
-};
-</script>
-
 <style scoped>
 
 </style>

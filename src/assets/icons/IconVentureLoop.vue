@@ -6,13 +6,6 @@
     </svg>
 
 </template>
-
-<script>
-export default {
-    name: "IconVentureLoop"
-};
-</script>
-
 <style scoped>
 
 </style>

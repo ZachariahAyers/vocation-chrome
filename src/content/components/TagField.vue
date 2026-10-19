@@ -16,28 +16,28 @@
                     :placeholder="`Add ${label.toLowerCase()}`"
                     @keydown="onKeydown"
                     @blur="add"
-                >
+                />
             </li>
         </ul>
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, useId } from "vue";
 
-defineProps({ label: { type: String, required: true } });
+defineProps<{ label: string }>();
 
-const model = defineModel({ type: Array, default: () => [] });
+const model = defineModel<string[]>({ required: true });
 const draft = ref("");
 const id = useId();
 
-function add() {
+function add(): void {
     const tag = draft.value.trim();
     if (tag && !model.value.includes(tag)) model.value = [...model.value, tag];
     draft.value = "";
 }
 
-function onKeydown(event) {
+function onKeydown(event: KeyboardEvent): void {
     if (event.key === "Enter" || event.key === ",") {
         event.preventDefault();
         add();
@@ -46,14 +46,12 @@ function onKeydown(event) {
     }
 }
 
-function remove(index) {
+function remove(index: number): void {
     if (index >= 0) model.value = model.value.filter((_, i) => i !== index);
 }
 </script>
 
 <style lang="scss" scoped>
-@use "../styles/theme" as *;
-
 .jx-tags {
     margin-bottom: 12px;
 }

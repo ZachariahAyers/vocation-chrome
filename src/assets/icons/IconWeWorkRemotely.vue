@@ -6,13 +6,6 @@
     </svg>
 
 </template>
-
-<script>
-export default {
-    name: "IconWeWorkRemotely"
-};
-</script>
-
 <style scoped>
 
 </style>

@@ -21,18 +21,16 @@
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import DockButton from "./DockButton.vue";
-import IconJobBoard from "../assets/icons/IconJobBoard.vue";
-import IconPersonal from "../assets/icons/IconPersonal.vue";
-import IconTemplates from "../assets/icons/IconTemplates.vue";
-import IconWork from "../assets/icons/IconWork.vue";
-import { ui } from "../store.js";
+import IconJobBoard from "../../assets/icons/IconJobBoard.vue";
+import IconPersonal from "../../assets/icons/IconPersonal.vue";
+import IconTemplates from "../../assets/icons/IconTemplates.vue";
+import IconWork from "../../assets/icons/IconWork.vue";
+import { ui } from "../store.ts";
 </script>
 
 <style lang="scss" scoped>
-@use "../styles/theme" as *;
-
 .jx-dock {
     position: fixed;
     bottom: 0;

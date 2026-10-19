@@ -6,13 +6,6 @@
     </svg>
 
 </template>
-
-<script>
-export default {
-    name: "IconZipRecruiter"
-};
-</script>
-
 <style scoped>
 
 </style>

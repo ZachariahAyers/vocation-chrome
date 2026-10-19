@@ -6,11 +6,11 @@
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import ConfettiRain from "./components/ConfettiRain.vue";
 import AppDock from "./components/AppDock.vue";
 import SidePanel from "./components/SidePanel.vue";
-import { allBoardsDone } from "./store.js";
+import { allBoardsDone } from "./store.ts";
 </script>
 
 <style lang="scss" scoped>

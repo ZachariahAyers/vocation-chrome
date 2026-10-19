@@ -1,0 +1,4 @@
+dist/
+package-lock.json
+# Icon components wrap artwork and keep its markup as authored.
+src/assets/icons/

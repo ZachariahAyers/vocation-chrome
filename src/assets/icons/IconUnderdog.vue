@@ -6,13 +6,6 @@
     </svg>
 
 </template>
-
-<script>
-export default {
-    name: "IconUnderdog"
-};
-</script>
-
 <style scoped>
 
 </style>

@@ -6,13 +6,6 @@
     </svg>
 
 </template>
-
-<script>
-export default {
-    name: "IconWayUp"
-};
-</script>
-
 <style scoped>
 
 </style>

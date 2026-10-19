@@ -5,13 +5,6 @@
                y="33" />
     </svg>
 </template>
-
-<script>
-export default {
-    name: "IconGlassDoor"
-};
-</script>
-
 <style scoped>
 
 </style>

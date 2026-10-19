@@ -15,15 +15,14 @@
     </li>
 </template>
 
-<script setup>
-import { markBoardDone } from "../store.js";
+<script setup lang="ts">
+import type { JobBoard } from "../../data/job-boards.ts";
+import { markBoardDone } from "../store.ts";
 
-defineProps({ board: { type: Object, required: true } });
+defineProps<{ board: JobBoard }>();
 </script>
 
 <style lang="scss" scoped>
-@use "../styles/theme" as *;
-
 .jx-board {
     position: relative;
     display: flex;
@@ -40,7 +39,9 @@ defineProps({ board: { type: Object, required: true } });
     border: 2px solid $primary;
     border-radius: 10px 0 0 10px;
     background-color: $white;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.14), 0 1px 5px rgba(0, 0, 0, 0.12);
+    box-shadow:
+        0 2px 2px rgba(0, 0, 0, 0.14),
+        0 1px 5px rgba(0, 0, 0, 0.12);
     color: $primary;
     font-size: 14px;
     font-weight: 500;
@@ -85,8 +86,8 @@ defineProps({ board: { type: Object, required: true } });
     padding: 0;
     border: none;
     border-radius: 0 10px 10px 0;
-    background-color: $red;
-    color: $red;
+    background-color: $danger;
+    color: $danger;
     font-size: 1.2em;
     cursor: pointer;
     filter: brightness(0.9);
@@ -101,10 +102,20 @@ defineProps({ board: { type: Object, required: true } });
 }
 
 @keyframes jx-wiggle {
-    0% { transform: rotate(10deg); }
-    25% { transform: rotate(-10deg); }
-    50% { transform: rotate(20deg); }
-    75% { transform: rotate(-5deg); }
-    100% { transform: rotate(0deg); }
+    0% {
+        transform: rotate(10deg);
+    }
+    25% {
+        transform: rotate(-10deg);
+    }
+    50% {
+        transform: rotate(20deg);
+    }
+    75% {
+        transform: rotate(-5deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
 }
 </style>
