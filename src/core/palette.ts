@@ -15,6 +15,8 @@ export const palette = {
     gray500: "#adb5bd",
     gray600: "#868e96",
     gray900: "#212529",
+    shadow: "rgba(0, 0, 0, 0.2)",
+    scrim: "rgba(0, 0, 0, 0.4)",
 } as const;
 
 export const font = "monospace";

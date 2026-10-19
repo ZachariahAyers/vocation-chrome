@@ -41,8 +41,8 @@ defineProps<{ board: JobBoard }>();
     border-radius: 10px 0 0 10px;
     background-color: $white;
     box-shadow:
-        0 2px 2px rgba(0, 0, 0, 0.14),
-        0 1px 5px rgba(0, 0, 0, 0.12);
+        0 2px 2px $shadow,
+        0 1px 5px $shadow;
     color: $primary;
     font-size: 14px;
     font-weight: 500;

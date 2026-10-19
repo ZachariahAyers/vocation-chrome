@@ -36,7 +36,7 @@ const panels = {
     padding: 16px 12px 60px 15px;
     overflow-y: auto;
     background: $gray-100;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+    box-shadow: 2px 2px 4px $shadow;
     color: $gray-900;
     font-family: $font;
     font-size: 14px;
@@ -44,7 +44,7 @@ const panels = {
 
 .side-backdrop {
     flex: 1;
-    background: rgba(0, 0, 0, 0.4);
+    background: $scrim;
 }
 
 .fade-enter-active,

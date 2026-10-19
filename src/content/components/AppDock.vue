@@ -54,7 +54,7 @@ import { ui } from "../store.ts";
     border: none;
     border-radius: 5px;
     background-color: $info;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 2px 5px $shadow;
     cursor: pointer;
     transition: all 0.5s ease;
 
@@ -82,7 +82,7 @@ import { ui } from "../store.ts";
 .dock-buttons {
     display: flex;
     max-height: 200px;
-    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 2px 6px $shadow;
 }
 
 .collapse-enter-active,
@@ -102,7 +102,7 @@ import { ui } from "../store.ts";
     padding: 10px;
     border-radius: 100px;
     background: $gray-900;
-    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+    box-shadow: 2px 2px 6px $shadow;
     color: $white;
     font-family: $font;
     font-size: 14px;
